@@ -3,9 +3,4 @@ server:
 spring:
   data:
     mongodb:
-      host: mongodb
-      port: 27017
-      database: mydatabase
-      username: dbuser
-      password: dbpassword
-      authentication-database: mydatabase
+      auto-index-creation: true
