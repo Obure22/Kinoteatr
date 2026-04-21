@@ -1,0 +1,37 @@
+server:
+  port: 6080
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: cinema-service
+              uri: http://cinemaservice:6070
+              predicates:
+                - Path=/api/cinema/**
+              filters:
+                - StripPrefix=2
+
+            - id: search-service
+              uri: http://searchservice:6090
+              predicates:
+                - Path=/api/search/**
+              filters:
+                - StripPrefix=2
+
+            - id: analyze-service
+              uri: http://analyzeservice:6060
+              predicates:
+                - Path=/api/analyze/**
+              filters:
+                - StripPrefix=2
+app:
+  allowed-origins: http://localhost:3000
+clerk:
+  api:
+    secret-key: sk_test_gxIRoaL3UksOPb6JYJQ0Tn5yvmBX0rq22hqugvug8f
+    authorized-parties: http://localhost:3000

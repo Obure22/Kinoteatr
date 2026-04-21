@@ -12,18 +12,18 @@ COPY searchService/pom.xml searchService/pom.xml
 COPY analyzeService/pom.xml analyzeService/pom.xml
 
 RUN chmod +x mvnw
-RUN --mount=type=cache,target=/root/.m2 ./mvnw -pl cinemaService -am dependency:go-offline -DskipTests
+RUN --mount=type=cache,target=/root/.m2 ./mvnw -pl analyzeService -am dependency:go-offline -DskipTests
 
-COPY cinemaService/src cinemaService/src
+COPY analyzeService/src analyzeService/src
 
-RUN --mount=type=cache,target=/root/.m2 ./mvnw -pl cinemaService -am package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 ./mvnw -pl analyzeService -am package -DskipTests
 
 FROM eclipse-temurin:25-jre-jammy AS final
 
 WORKDIR /app
 
-COPY --from=build /build/cinemaService/target/*.jar app.jar
+COPY --from=build /build/analyzeService/target/*.jar app.jar
 
-EXPOSE 6070
+EXPOSE 6060
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
