@@ -64,8 +64,8 @@ services:
     restart: always
     depends_on:
       - mongo
-    expose:
-      - 8081
+    ports:
+      - 8081:8081
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongo:27017/admin?authSource=admin
       ME_CONFIG_BASICAUTH_USERNAME: admin1

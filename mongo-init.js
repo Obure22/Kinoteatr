@@ -9,4 +9,7 @@ db.createUser({
     }]
 });
 
-db.test.insertOne({ ok: 1 })
+db.movies.insertOne({ ok: 1})
+db.movies_genres.insertOne({ ok: 1})
+db.comments.insertOne({ ok: 1})
+db.genres.insertOne({ ok: 1})
