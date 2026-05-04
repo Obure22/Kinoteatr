@@ -2,6 +2,7 @@ package _31.Shvetsov.document;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "movies_genres")
@@ -9,6 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class Movie_GenreDocument {
 
-    Integer movie_id;
-    Integer genre_id;
+    @Id
+    private String id;
+
+    private Integer movie_id;
+    private Integer genre_id;
 }

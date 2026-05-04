@@ -3,13 +3,18 @@ services:
     container_name: analyzeservice
     build:
       context: .
-      dockerfile: ./analyzeservice/Dockerfile
+      dockerfile: ./analyzeService/Dockerfile
     expose:
       - 6060
     depends_on:
       - mongo
+      - rabbitmq
     environment:
       SPRING_MONGODB_URI: mongodb://dbuser:dbpassword@mongo:27017/mydatabase?authSource=mydatabase
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
   cinemaservice:
     container_name: cinemaservice
     build:
@@ -19,13 +24,20 @@ services:
       - 6070
     depends_on:
       - mongo
+      - rabbitmq
     environment:
       SPRING_MONGODB_URI: mongodb://dbuser:dbpassword@mongo:27017/mydatabase?authSource=mydatabase
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    volumes:
+      - ./videos:/videos:ro
   authservice:
     container_name: authservice
     build:
       context: .
-      dockerfile: ./authservice/Dockerfile
+      dockerfile: ./authService/Dockerfile
     ports:
       - 6080:6080
     depends_on:
@@ -46,6 +58,16 @@ services:
       - mongo
     environment:
       SPRING_MONGODB_URI: mongodb://dbuser:dbpassword@mongo:27017/mydatabase?authSource=mydatabase
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
   mongo:
     image: mongo:latest
     container_name: mongo

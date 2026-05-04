@@ -14,9 +14,11 @@ public class CommentDocument {
     @Id
     private Integer comment_id;
 
-    private String movie_id;
-    private String user_id;
+    private Integer movie_id;
+    private Integer user_id;
     private String message_text;
-    private String score;
+    private Integer score;
+    private String status;
+    private String moderation_reason;
 
 }

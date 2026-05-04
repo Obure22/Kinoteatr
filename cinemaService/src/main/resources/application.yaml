@@ -4,3 +4,13 @@ spring:
   data:
     mongodb:
       auto-index-creation: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+rabbitmq:
+  comments:
+    exchange: comment.moderation.exchange
+    queue: comment.moderation.queue
+    routing-key: comment.created

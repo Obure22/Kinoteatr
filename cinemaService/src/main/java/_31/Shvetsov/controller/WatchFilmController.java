@@ -24,6 +24,12 @@ public class WatchFilmController {
                 .contentType(MediaType.parseMediaType("video/mp4"))
                 .body(resource);
     }
+
+    @GetMapping(value = "/film/{filmId}/fullscreen", produces = "video/mp4")
+    public ResponseEntity<Resource> openFullScreen(@PathVariable Integer filmId) {
+        return getFilm(filmId);
+    }
+
     @GetMapping("/test")
     public ResponseEntity<String> test(){
         return ResponseEntity.ok()
