@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./analyzeService/Dockerfile
-    expose:
-      - 6060
+    ports:
+      - 6060:6060
     depends_on:
       - mongo
       - rabbitmq
@@ -20,8 +20,8 @@ services:
     build:
       context: .
       dockerfile: ./cinemaService/Dockerfile
-    expose:
-      - 6070
+    ports:
+      - 6070:6070
     depends_on:
       - mongo
       - rabbitmq
@@ -52,8 +52,8 @@ services:
     build:
       context: .
       dockerfile: ./searchService/Dockerfile
-    expose:
-      - 6090
+    ports:
+      - 6090:6090
     depends_on:
       - mongo
     environment:
